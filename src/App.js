@@ -12,16 +12,17 @@ const App = () => {
       <Layout 
         title = "This is title"
         descr = "This is Description!"
-        backgroundImg = {img}
+        urlBg = {img}
       />
       <Layout 
         title = "This is title"
         descr = "This is Description!"
+        colorBg = "	#E6E6FA"
       />
       <Layout
         title = "This is title"
         descr = "This is Description!"
-        backgroundImg = {img}
+        urlBg = {img}
       />
       <Footer />
     </>

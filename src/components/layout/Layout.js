@@ -1,10 +1,8 @@
 import style from './layout.module.css';
 
-const Layout = ({ title, descr, backgroundImg}) => {
+const Layout = ({ title, descr, urlBg, colorBg}) => {
 
-    console.log({ title, descr, backgroundImg});
-
-    const styleRoot = backgroundImg ? {backgroundImage: `url(${backgroundImg})`} : {backgroundColor: 'red'};
+    const styleRoot = urlBg ? {backgroundImage: `url(${urlBg})`} : {backgroundColor: colorBg};
 
     return (
 
