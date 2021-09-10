@@ -1,6 +1,6 @@
 import style from './layout.module.css';
 
-const Layout = ({ title, descr, urlBg, colorBg}) => {
+const Layout = ({ title, descr, urlBg, colorBg, children}) => {
 
     const styleRoot = urlBg ? {backgroundImage: `url(${urlBg})`} : {backgroundColor: colorBg};
 
@@ -15,7 +15,7 @@ const Layout = ({ title, descr, urlBg, colorBg}) => {
                     <span className={style.separator}></span>
                 </div>
                 <div className={`${style.desc} ${style.full}`}>
-                    {descr && <p>{descr}</p>}
+                    {children}
                 </div>
             </article>
         </div>
