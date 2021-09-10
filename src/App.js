@@ -1,4 +1,4 @@
-import './App.css';
+import style from './App.module.css';
 import img from './img/bg3.jpg'
 import Header from './components/header/Header';
 import Layout from './components/layout/Layout';
@@ -31,7 +31,7 @@ const App = () => {
         colorBg = "	#E6E6FA"
         >
 
-        <div className = "flex">
+        <div className = {style.flex}>
           {
             POKEMONS.map(item => <PockemonCard key = {item.id} name = {item.name} img = {item.img} id = {item.id} type = {item.type} values = {item.values} />)
           }
