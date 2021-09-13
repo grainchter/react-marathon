@@ -1,25 +1,25 @@
 import style from './layout.module.css';
 
-const Layout = ({ title, descr, urlBg, colorBg, children}) => {
+const Layout = ({ title, descr, urlBg, colorBg, children }) => {
 
-    const styleRoot = urlBg ? {backgroundImage: `url(${urlBg})`} : {backgroundColor: colorBg};
+    const styleRoot = urlBg ? { backgroundImage: `url(${urlBg})` } : { backgroundColor: colorBg };
 
     return (
 
-    <section className={style.root} style = {styleRoot}>
+        <section className={style.root} style={styleRoot}>
 
-        <div className={style.wrapper}>
-            <article>
-                <div className={style.title}>
-                   {title && <h3>{title}</h3>}
-                    <span className={style.separator}></span>
-                </div>
-                <div className={`${style.desc} ${style.full}`}>
-                    {children}
-                </div>
-            </article>
-        </div>
-    </section>
+            <div className={style.wrapper}>
+                <article>
+                    <div className={style.title}>
+                        {title && <h3>{title}</h3>}
+                        <span className={style.separator}></span>
+                    </div>
+                    <div className={`${style.desc} ${style.full}`}>
+                        {children}
+                    </div>
+                </article>
+            </div>
+        </section>
     );
 }
 
