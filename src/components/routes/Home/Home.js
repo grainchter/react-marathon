@@ -11,7 +11,6 @@ import POKEMONS from '../../../json/pokemons.json';
 
 const HomePage = ({ onChangePage }) => {
   const handleClickButton = (page) => {
-    console.log('<HomePage />');
     onChangePage && onChangePage(page);
   }
   return (

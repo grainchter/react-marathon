@@ -3,7 +3,6 @@ import style from './Games.module.css';
 const GamePage = ({ onChangePage }) => {
 
     const onGamesClick = () => {
-        console.log('<Games />');
         onChangePage('app');
     }
 

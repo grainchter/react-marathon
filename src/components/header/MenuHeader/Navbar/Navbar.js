@@ -9,7 +9,6 @@ const Navbar = ({ onChangeActive }) => {
     const onMenuClick = () => {
         setMenuStatus(!menuActive);
         onChangeActive && onChangeActive(menuActive);
-        console.log(menuActive);
     }
 
     return (

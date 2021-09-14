@@ -3,7 +3,6 @@ import style from './header.module.css';
 const Header = ({ onClickButton }) => {
 
     const onClick = () => {
-        console.log('<Header />');
         onClickButton && onClickButton('game');
     }
 

@@ -6,7 +6,7 @@ import cn from 'classnames';
 const Menu = ({ isActive }) => {
 
     return (
-        <div className={cn(style.menuContainer, { [style.active]: isActive-- - true, [style.deactive]: isActive-- - false })}>
+        <div className={cn(style.menuContainer, { [style.active]: isActive---true, [style.deactive]: isActive---false})}>
             <div className={style.overlay} />
             <div className={style.menuItems}>
                 <ul>
