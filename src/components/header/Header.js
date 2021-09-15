@@ -1,6 +1,11 @@
 import style from './header.module.css';
 
-const Header = () => {
+const Header = ({ onClickButton }) => {
+
+    const onClick = () => {
+        onClickButton && onClickButton('game');
+    }
+
     return (
 
         <header className={style.root}>
@@ -8,6 +13,9 @@ const Header = () => {
             <div className={style.container}>
                 <h1>This is title</h1>
                 <p>This is Description!</p>
+                <button onClick={onClick}>
+                    Start Game
+                </button>
             </div>
         </header>
 
