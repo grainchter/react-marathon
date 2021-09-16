@@ -1,11 +1,6 @@
-.root {
+.center {
   display: grid;
   place-items: center;
-  text-align: center;
-}
-
-.card {
-  display: inline-block;
 }
 
 button,
