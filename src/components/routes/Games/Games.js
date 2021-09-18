@@ -22,7 +22,7 @@ const GamePage = () => {
         database.ref('pokemons').once('value', (snapshot) => {
             setPokemons(snapshot.val());
         });
-    }, []);
+    }, [pokemons]);
 
     const onPokemonClick = (isActive, id) => {
 
