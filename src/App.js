@@ -11,7 +11,6 @@ import NotFoundPage from "./components/routes/NotFound/NotFound";
 
 import style from './style.module.css';
 
-
 const App = () => {
 
   const match = useRouteMatch("/");
