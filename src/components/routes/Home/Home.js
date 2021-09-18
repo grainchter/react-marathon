@@ -15,10 +15,8 @@ const HomePage = ({ onChangePage }) => {
   }
   return (
     <>
-      <MenuHeader />
       <Header
         onClickButton={handleClickButton}
-
       />
       <Layout
         title="This is title"

@@ -4,12 +4,14 @@ import style from './PokemonCard.module.css';
 import CardBackSide from './img/card-back-side.jpg';
 import cn from 'classnames';
 
-const PokemonCard = ({ name, img, id, type, values }) => {
+const PokemonCard = ({ name, img, id, type, values, onPokemonClick }) => {
 
     const [isActive, setActive] = useState(false);
 
     const onClick = () => {
+        onPokemonClick && onPokemonClick(!isActive, id);
         setActive(!isActive);
+
     }
 
 
