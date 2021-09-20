@@ -28,7 +28,7 @@ const GamePage = () => {
 
         let obj = Object.entries(pokemons);
         const key = obj.find(element =>
-            element[1].id---id);
+            element[1].id===id);
         const objID = key[0];
         update(ref(database, 'pokemons/' + objID), {
             active: isActive
@@ -37,10 +37,11 @@ const GamePage = () => {
     }
 
     const onAddPokemon = () => {
-        for (let i = 0; i < POKEMONS.length; i++) {
+
+            const lengthArr = Object.entries(POKEMONS).length;
             const newKey = database.ref().child('pokemons').push().key;
-            database.ref('pokemons/' + newKey).set(POKEMONS[i]);
-        }
+            database.ref('pokemons/' + newKey).set(POKEMONS[Math.floor(Math.random() * lengthArr)]);
+
 
     }
 
