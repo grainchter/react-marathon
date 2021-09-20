@@ -9,7 +9,7 @@ const PokemonCard = ({ name, img, id, type, values, onPokemonClick }) => {
     const [isActive, setActive] = useState(false);
 
     const onClick = () => {
-        onPokemonClick && onPokemonClick(!isActive, id);
+        onPokemonClick && onPokemonClick(isActive, id);
         setActive(!isActive);
 
     }

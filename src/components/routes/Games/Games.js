@@ -31,7 +31,7 @@ const GamePage = () => {
             element[1].id===id);
         const objID = key[0];
         update(ref(database, 'pokemons/' + objID), {
-            active: isActive
+            active: !isActive
         });
 
     }
