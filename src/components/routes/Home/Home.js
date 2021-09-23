@@ -39,7 +39,7 @@ const HomePage = ({ onChangePage }) => {
 
         <div className={style.flex}>
           {
-            POKEMONS.map(item => <PockemonCard key={item.id} name={item.name} img={item.img} id={item.id} type={item.type} values={item.values} />)
+            POKEMONS.map(item => <PockemonCard key={item.id} name={item.name} img={item.img} id={item.id} type={item.type} values={item.values}/>)
           }
         </div>
 

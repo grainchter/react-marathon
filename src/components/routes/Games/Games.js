@@ -1,68 +1,44 @@
-import { useHistory } from 'react-router';
-import style from './Games.module.css';
-import PokemonCard from '../../PokemonCard/PokemonCard';
-import POKEMONS from './../../../json/pokemons.json';
-import { useState } from 'react';
-
-const POKEMONDATA = POKEMONS.map(pokemon => {
-    Object.assign(pokemon, { 'active': false })
-    return pokemon;
-})
+import { Redirect, Route, Switch, useRouteMatch } from "react-router";
+import StartPage from "./routes/Start/Start";
+import BoardPage from "./routes/Board/Board";
+import FinishPage from "./routes/Finish/Finish";
+import { PokemonContext } from "../../../context/PokemonContext";
+import { useState } from "react";
 
 const GamePage = () => {
+    const [selectedPokemons, setSelectedPokemons] = useState({});
+    console.log(selectedPokemons);
 
-    const history = useHistory();
+    const match = useRouteMatch();
 
-    const onClick = () => {
-        history.push('/');
+    const handleSelectedPokemons = (key, pokemon) => {
+setSelectedPokemons(prevState => {
+    if (prevState[key]) {
+        const copyState = {...prevState};
+        delete copyState[key];
+
+        return copyState;
     }
 
-    const [pokemons, setPokemons] = useState(() => POKEMONS.slice(0, 5));
-
-    const onClickPokemon = (id) => {
-        setPokemons(prevState =>
-            prevState.map(
-                item => item.id === id ?
-                    { ...item, active: !item.active } :
-                    item
-            )
-        )
+    return {
+        ...prevState,
+        [key]: pokemon,
     }
-
+})
+    }
 
     return (
-        <div className={style.root}>
-            <div className={style.center}>
-                <h1>зис из гейм пэйдж</h1>
-
-
-                {
-                    pokemons.map((item) =>
-                        <div className={style.card}>
-                            <PokemonCard
-                                key={item.id}
-                                name={item.name}
-                                img={item.img}
-                                id={item.id}
-                                type={item.type}
-                                values={item.values}
-                                isActive={item.active}
-                                onClickPokemon={onClickPokemon}
-                            />
-                        </div>
-                    )
-                }
-            </div>
-            <button onClick={onClick} >
-                Go to Home Page
-            </button>
-        </div>
-
-
-
-
-
+        <PokemonContext.Provider value={{
+            pokemons: selectedPokemons,
+            onSelectedPokemons: handleSelectedPokemons
+        }}>
+            <Switch>
+                <Route path={`${match.path}/`} exact component={StartPage} />
+                <Route path={`${match.path}/board`} component={BoardPage} />
+                <Route path={`${match.path}/finish`} component={FinishPage} />
+            </Switch>
+        </PokemonContext.Provider>
     );
-}
+};
 
 export default GamePage;

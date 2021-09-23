@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const MENU = [
     {
         title: 'HOME',
-        to: '/home',
+        to: '/',
     },
     {
         title: 'GAME',
