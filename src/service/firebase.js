@@ -45,6 +45,13 @@ class Firebase {
     this.database.ref('pokemons/' + newKey).set(POKEMONS[Math.floor(Math.random() * lengthArr)]).then(() => cb());
   }
 
+  addNewPokemon = (addingPokemos) => {
+    const newKey = this.database.ref().child('pokemons').push().key;
+    console.log(newKey);
+    this.database.ref('pokemons/' + newKey).set(addingPokemos);
+    console.log(typeof addingPokemos);
+  }
+
 }
 
 export default Firebase;
