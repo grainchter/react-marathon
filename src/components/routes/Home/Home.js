@@ -7,11 +7,18 @@ import PockemonCard from '../../PokemonCard/PokemonCard';
 import MenuHeader from '../../header/MenuHeader/MenuHeader';
 
 import POKEMONS from '../../../json/pokemons.json';
+import { useHistory } from 'react-router';
+
 
 
 const HomePage = ({ onChangePage }) => {
-  const handleClickButton = (page) => {
-    onChangePage && onChangePage(page);
+
+  const history = useHistory();
+
+
+  const handleClickButton = () => {
+    history.pushState('game');
+    // dispatch(plusAction(1));
   }
   return (
     <>
@@ -39,7 +46,7 @@ const HomePage = ({ onChangePage }) => {
 
         <div className={style.flex}>
           {
-            POKEMONS.map(item => <PockemonCard key={item.id} name={item.name} img={item.img} id={item.id} type={item.type} values={item.values}/>)
+            POKEMONS.map(item => <PockemonCard key={item.id} name={item.name} img={item.img} id={item.id} type={item.type} values={item.values} />)
           }
         </div>
 
