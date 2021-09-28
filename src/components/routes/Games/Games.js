@@ -4,33 +4,62 @@ import BoardPage from "./routes/Board/Board";
 import FinishPage from "./routes/Finish/Finish";
 import { PokemonContext } from "../../../context/PokemonContext";
 import { useState } from "react";
+import { useEffect } from "react";
+import NotFoundPage from "./../../../components/routes/NotFound/NotFound";
 
 const GamePage = () => {
     const [selectedPokemons, setSelectedPokemons] = useState({});
-    console.log(selectedPokemons);
+    const [selectedPokemons2, setSelectedPokemons2] = useState({});
+    const [comp, setComp] = useState();
+
+    useEffect(async () => {
+        const player2Response = await fetch('https://reactmarathon-api.netlify.app/api/create-player');
+        const player2Request = await player2Response.json();
+        
+
+        setSelectedPokemons2(() => {
+            return player2Request.data.map(item => ({
+                ...item,
+                possession: 'red',
+            })
+            )
+        });
+
+
+
+    }, [])
+
+    const clean = () => {
+        setSelectedPokemons({});
+        setSelectedPokemons2({});
+    }
 
     const match = useRouteMatch();
 
     const handleSelectedPokemons = (key, pokemon) => {
-setSelectedPokemons(prevState => {
-    if (prevState[key]) {
-        const copyState = {...prevState};
-        delete copyState[key];
+        setSelectedPokemons(prevState => {
+            if (prevState[key]) {
+                const copyState = { ...prevState };
+                delete copyState[key];
 
-        return copyState;
+                return copyState;
+            }
+
+            return {
+                ...prevState,
+                [key]: pokemon,
+            }
+        })
     }
 
-    return {
-        ...prevState,
-        [key]: pokemon,
-    }
-})
-    }
+
 
     return (
         <PokemonContext.Provider value={{
             pokemons: selectedPokemons,
-            onSelectedPokemons: handleSelectedPokemons
+            pokemons2: selectedPokemons2,
+            onSelectedPokemons: handleSelectedPokemons,
+            clean
         }}>
             <Switch>
                 <Route path={`${match.path}/`} exact component={StartPage} />
