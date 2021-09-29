@@ -1,18 +1,13 @@
-import database from './../../../../../service/firebase';
-import { ref, update } from "firebase/database";
-
 import { useHistory } from 'react-router';
 import style from './Start.module.css';
 import PokemonCard from './../../../../PokemonCard/PokemonCard';
-import POKEMONS from './../../../../../json/pokemons.json';
+
 import { useState, useEffect } from 'react';
 
-import { FireBaseContext } from '../../../../../context/FireBaseContext';
-import { useContext } from 'react';
-import { PokemonContext } from '../../../../../context/PokemonContext';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemonsAsync, selectPokemonsData, selectPokemonsLoading, fetchPokemons } from '../../../../../store/pokemon';
-import {  getPokemonsResolve } from '../../../../../store/pokemons1';
+import { getPokemonsAsync, selectPokemonsData } from '../../../../../store/pokemon';
+import { getPokemonsResolve } from '../../../../../store/pokemons1';
 
 
 
@@ -23,7 +18,6 @@ const StartPage = () => {
     const pokemonsRedux = useSelector(selectPokemonsData);
 
     const dispatch = useDispatch();
-    // console.log('redux', pokemonsRedux);
 
     const [pokemons, setPokemons] = useState({});
 
@@ -39,8 +33,6 @@ const StartPage = () => {
     }, [pokemonsRedux]);
 
     const onPokemonSelected = (key) => {
-        // const pokemon = { ...pokemons[key] };
-        // setPokemons1(pokemon);
 
         setPokemons(prevState => {
             const getPokemons = {
@@ -56,7 +48,7 @@ const StartPage = () => {
             return getPokemons;
 
         })
-        
+
     };
 
     const onStartClick = () => {
@@ -67,7 +59,7 @@ const StartPage = () => {
     return (
         <>
             <div >
-                <button className={style.buttonWrap} onClick={onStartClick} disabled = {Object.values(pokemons).filter(item => item.selected === true).length < 5} >
+                <button className={style.buttonWrap} onClick={onStartClick} disabled={Object.values(pokemons).filter(item => item.selected === true).length < 5} >
                     Start game
                 </button>
             </div>

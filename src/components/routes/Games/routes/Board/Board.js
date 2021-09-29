@@ -1,11 +1,10 @@
-import { react, useContext, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import style from './Board.module.css';
 import PokemonCard from '../../../../PokemonCard/PokemonCard';
 import PlayerBoard from './component/PlayerBoard/PlayerBoard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getData } from './../../../../../store/pokemons1';
-import { getPokemons2Data, get2Data } from './../../../../../store/pokemons2';
+import { getData, get2Data, getPokemons2Resolve } from './../../../../../store/pokemons1';
 
 
 const counterWin = (board, player1, player2) => {
@@ -32,7 +31,7 @@ const counterWin = (board, player1, player2) => {
 
 const BoardPage = () => {
 
-    const pokemons = useSelector(get2Data);
+    const pokemons = useSelector(getData);
     const pokemons2 = useSelector(get2Data);
     const dispatch = useDispatch();
 
@@ -48,14 +47,6 @@ const BoardPage = () => {
 
     const [player2, setPlayer2] = useState([]);
 
-    useEffect(() => {
-        dispatch(getPokemons2Data(player2));
-        console.log(pokemons2);
-    }, [player2]);
-
-
-
-
     const history = useHistory();
     if (Object.keys(pokemons).length === 0) {
         history.replace('/game');
@@ -67,6 +58,7 @@ const BoardPage = () => {
         setBoard(boardRequest.data);
         const player2Response = await fetch('https://reactmarathon-api.netlify.app/api/create-player');
         const player2Request = await player2Response.json();
+        dispatch(getPokemons2Resolve(player2Request));
 
         setPlayer2(() => {
             return player2Request.data.map(item => ({
