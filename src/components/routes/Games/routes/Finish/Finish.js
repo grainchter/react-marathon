@@ -25,8 +25,7 @@ const FinishPage = () => {
         const keyPock = obj.find(element =>
             element[1].id === id);
         setAddingPokemon(keyPock[1]);
-        dispatch(getPokemonsResolve({}));
-        dispatch(getPokemons2Resolve({}));
+        // dispatch(getPokemonsResolve({}));
     }
 
     const onAddPokemon = () => {
@@ -36,7 +35,7 @@ const FinishPage = () => {
             // clean();
             history.replace('/');
         } else {
-            alert('Нужно выбратьь покемона');
+            alert('Нужно выбрать покемона');
         }
 
     }
