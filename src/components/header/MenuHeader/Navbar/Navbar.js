@@ -1,8 +1,10 @@
 import style from './Navbar.module.css';
 import cn from 'classnames';
+import { ReactComponent as LogoSVG } from './img/login.svg';
+
 import { useState } from 'react/cjs/react.development';
 
-const Navbar = ({ bgActive = false, onChangeActive, noneActive }) => {
+const Navbar = ({ bgActive = false, onChangeActive, onClickLogin }) => {
 
 
 
@@ -20,14 +22,23 @@ const Navbar = ({ bgActive = false, onChangeActive, noneActive }) => {
             [style.bgActive]: bgActive
         })}>
             <div className={style.navWrapper}>
-                <p className={style.brand}>
+                <div className={style.brand}>
                     LOGO
-                </p>
-                <a className={cn(style.menuButton, {
-                    [style.active]: menuActive
-                })} onClick={isNoneActive}>
-                    <span />
-                </a>
+                </div>
+                <div className={style.loginAndMenu}>
+                    <div
+                    className={style.loginWrap}
+                    onClick={onClickLogin}
+                    >
+                        <LogoSVG />
+                    </div>
+
+                    <div className={cn(style.menuButton, {
+                        [style.active]: menuActive
+                    })} onClick={isNoneActive}>
+                        <span />
+                    </div>
+                </div>
             </div>
         </nav>
     );

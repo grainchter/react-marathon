@@ -1,46 +1,54 @@
-import database from './../../../../../service/firebase';
-import { ref, update } from "firebase/database";
-
 import { useHistory } from 'react-router';
 import style from './Start.module.css';
 import PokemonCard from './../../../../PokemonCard/PokemonCard';
-import POKEMONS from './../../../../../json/pokemons.json';
+
 import { useState, useEffect } from 'react';
 
-import { FireBaseContext } from '../../../../../context/FireBaseContext';
-import { useContext } from 'react';
-import { PokemonContext } from '../../../../../context/PokemonContext';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { getPokemonsAsync, selectPokemonsData } from '../../../../../store/pokemon';
+import { getPokemonsResolve } from '../../../../../store/pokemons1';
+
 
 
 const StartPage = () => {
 
     const history = useHistory();
-    const firebase = useContext(FireBaseContext);
-    const pokemonsContext = useContext(PokemonContext);
+
+    const pokemonsRedux = useSelector(selectPokemonsData);
+
+    const dispatch = useDispatch();
 
     const [pokemons, setPokemons] = useState({});
 
 
 
+
     useEffect(() => {
-        firebase.getPokemonSoket((pokemons) => {
-            setPokemons(pokemons);
-        });
-
-        return () => firebase.offPokemonSoket();
-
+        dispatch(getPokemonsAsync());
     }, []);
 
+    useEffect(() => {
+        setPokemons(pokemonsRedux);
+    }, [pokemonsRedux]);
+
     const onPokemonSelected = (key) => {
-        const pokemon = { ...pokemons[key] };
-        pokemonsContext.onSelectedPokemons(key, pokemon);
-        setPokemons(prevState => ({
-            ...prevState,
-            [key]: {
-                ...prevState[key],
-                selected: !prevState[key].selected,
-            }
-        }))
+
+        setPokemons(prevState => {
+            const getPokemons = {
+                ...prevState,
+                [key]: {
+                    ...prevState[key],
+                    selected: !prevState[key].selected
+                }
+            };
+
+            const selectedPokemons = Object.values(getPokemons).filter(item => item.selected === true);
+            dispatch(getPokemonsResolve(selectedPokemons));
+            return getPokemons;
+
+        })
+
     };
 
     const onStartClick = () => {
@@ -51,7 +59,7 @@ const StartPage = () => {
     return (
         <>
             <div >
-                <button className={style.buttonWrap} onClick={onStartClick} disabled={Object.keys(pokemonsContext.pokemons).length < 5}>
+                <button className={style.buttonWrap} onClick={onStartClick} disabled={Object.values(pokemons).filter(item => item.selected === true).length < 5} >
                     Start game
                 </button>
             </div>
@@ -69,7 +77,7 @@ const StartPage = () => {
                             isActive={true}
                             isSelected={selected}
                             onPokemonClick={() => {
-                                if (Object.keys(pokemonsContext.pokemons).length < 5 || selected) {
+                                if (Object.values(pokemons).filter(item => item.selected === true).length < 5 || selected) {
                                     onPokemonSelected(key);
                                 }
                             }

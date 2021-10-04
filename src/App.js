@@ -1,4 +1,7 @@
-import { useState } from "react/cjs/react.development";
+import { NotificationContainer } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+
+import PrivateRoute from './components/PrivateRoutes/PrivateRoutes';
 import HomePage from "./components/routes/Home/Home";
 import GamePage from "./components/routes/Games/Games";
 import { useLocation, Redirect, Route, Switch, useRouteMatch } from "react-router";
@@ -10,9 +13,7 @@ import ContactPage from "./components/routes/Contact/Contact";
 import NotFoundPage from "./components/routes/NotFound/NotFound";
 
 import style from './style.module.css';
-import Firebase from "./service/firebase";
 
-import { FireBaseContext } from "./context/FireBaseContext";
 
 const App = () => {
 
@@ -21,34 +22,35 @@ const App = () => {
 
 
   return (
-    <FireBaseContext.Provider value = {new Firebase}>
-      <Switch>
-        <Route path='/404' component={NotFoundPage} />
-        <Route>
-          <>
-            <MenuHeader bgActive={!isPadding} />
-            <div className={cn(style.wrap, {
-              [style.isHomePage]: isPadding
-            })}>
-              <Switch>
-                <Route path="/" exact component={HomePage} />
-                <Route path="/home" component={HomePage} />
-                {/* <Route path="/home" render={() => (
+
+    <Switch>
+      <Route path='/404' component={NotFoundPage} />
+      <Route>
+        <>
+          <MenuHeader bgActive={!isPadding} />
+          <div className={cn(style.wrap, {
+            [style.isHomePage]: isPadding
+          })}>
+            <Switch>
+              <Route path="/" exact component={HomePage} />
+              <Route path="/home" component={HomePage} />
+              {/* <Route path="/home" render={() => (
                 <Redirect to="/" />
               )} /> */}
-                <Route path="/game" component={GamePage} />
-                <Route path="/about" component={AboutPage} />
-                <Route path="/contact" component={ContactPage} />
-                <Route render={() => (
-                  <Redirect to="/404" />
-                )} />
-              </Switch>
-            </div>
-            <Footer />
-          </>
-        </Route>
-      </Switch>
-    </FireBaseContext.Provider>
+              <PrivateRoute path="/game" component={GamePage} />
+              <PrivateRoute path="/about" component={AboutPage} />
+              <Route path="/contact" component={ContactPage} />
+              <Route render={() => (
+                <Redirect to="/404" />
+              )} />
+            </Switch>
+          </div>
+          <Footer />
+          <NotificationContainer />
+        </>
+      </Route>
+    </Switch>
+
 
   );
 

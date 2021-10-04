@@ -40,11 +40,6 @@ class Firebase {
     this.database.ref(`pokemons/${key}`).set(pokemon);
   }
 
-  addPokemon = (lengthArr, POKEMONS, cb) => {
-    const newKey = this.database.ref().child('pokemons').push().key;
-    this.database.ref('pokemons/' + newKey).set(POKEMONS[Math.floor(Math.random() * lengthArr)]).then(() => cb());
-  }
-
   addNewPokemon = (addingPokemos) => {
     const newKey = this.database.ref().child('pokemons').push().key;
     console.log(newKey);
@@ -54,4 +49,6 @@ class Firebase {
 
 }
 
-export default Firebase;
+const FirebaseClass = new Firebase();
+
+export default FirebaseClass;
