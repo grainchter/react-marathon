@@ -13,13 +13,27 @@ import ContactPage from "./components/routes/Contact/Contact";
 import NotFoundPage from "./components/routes/NotFound/NotFound";
 
 import style from './style.module.css';
+import { useEffect } from 'react';
+import { getUserAsync, selectUserLoading } from './store/user';
+import { useDispatch, useSelector } from 'react-redux';
+import UserPage from './components/routes/User/User';
 
 
 const App = () => {
 
+  const isUserLoading = useSelector(selectUserLoading);
   const location = useLocation();
   const isPadding = location.pathname === '/' || location.pathname === '/game/board' || location.pathname === '/home';
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserAsync());
+  }, []);
+
+  if (isUserLoading) {
+    return 'Loading';
+  }
 
   return (
 
@@ -34,11 +48,9 @@ const App = () => {
             <Switch>
               <Route path="/" exact component={HomePage} />
               <Route path="/home" component={HomePage} />
-              {/* <Route path="/home" render={() => (
-                <Redirect to="/" />
-              )} /> */}
               <PrivateRoute path="/game" component={GamePage} />
               <PrivateRoute path="/about" component={AboutPage} />
+              <PrivateRoute path="/user" component={UserPage} />
               <Route path="/contact" component={ContactPage} />
               <Route render={() => (
                 <Redirect to="/404" />

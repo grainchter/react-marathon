@@ -34,17 +34,25 @@ class Firebase {
     return await this.database.ref('pokemons').once('value').then(snapshot => snapshot.val());
   }
 
-
-
   postPokemon = (key, pokemon) => {
     this.database.ref(`pokemons/${key}`).set(pokemon);
   }
 
-  addNewPokemon = (addingPokemos) => {
-    const newKey = this.database.ref().child('pokemons').push().key;
+  getNewPokemon = (pokemon, localId) => {
+    this.localId = localId;
+    this.pokemon = pokemon;
+  }
+
+  addNewPokemon = () => {
+
+    const newKey = this.database.ref().child('/' + this.localId + '/pokemons/').push().key;
     console.log(newKey);
-    this.database.ref('pokemons/' + newKey).set(addingPokemos);
-    console.log(typeof addingPokemos);
+    this.database.ref('/' + this.localId + '/pokemons/' + newKey).set(this.pokemon);
+    // console.log(typeof addingPokemos);
+
+    // console.log(this.localId);
+    // console.log(this.pokemon);
+
   }
 
 }
