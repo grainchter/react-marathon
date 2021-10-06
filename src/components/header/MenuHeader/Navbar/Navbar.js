@@ -58,7 +58,7 @@ const Navbar = ({ bgActive = false, onChangeActive, onClickLogin }) => {
                         <div
                             className={style.exitWrap}
                             onClick={() => {
-                                localStorage.clear();
+                                localStorage.removeItem("idToken");
                                 window.location.reload();
                             }}
                         >
