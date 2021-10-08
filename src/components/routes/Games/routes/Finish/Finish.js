@@ -7,9 +7,14 @@ import { useHistory } from 'react-router';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getData, get2Data, getPokemonsResolve, getPokemons2Resolve } from './../../../../../store/pokemons1';
+import { addPokemonUser } from '../../../../../store/user';
 
 
 const FinishPage = () => {
+
+
+
+    // console.log(localId);
 
     const history = useHistory();
     const [addingPokemos, setAddingPokemon] = useState();
@@ -17,6 +22,8 @@ const FinishPage = () => {
     const pokemons = useSelector(getData);
     const pokemons2 = useSelector(get2Data).data;
     const dispatch = useDispatch();
+    dispatch(addPokemonUser(addingPokemos));
+
 
 
     const clicked = (id) => {
@@ -30,8 +37,8 @@ const FinishPage = () => {
 
     const onAddPokemon = () => {
         if (addingPokemos != undefined) {
-            console.log(addingPokemos);
-            FirebaseClass.addNewPokemon(addingPokemos);
+
+            FirebaseClass.addNewPokemon();
             // clean();
             history.replace('/');
         } else {
