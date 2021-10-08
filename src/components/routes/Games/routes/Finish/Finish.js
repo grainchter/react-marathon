@@ -20,7 +20,7 @@ const FinishPage = () => {
     const [addingPokemos, setAddingPokemon] = useState();
 
     const pokemons = useSelector(getData);
-    const pokemons2 = useSelector(get2Data).data;
+    const pokemons2 = useSelector(get2Data);
     const dispatch = useDispatch();
     dispatch(addPokemonUser(addingPokemos));
 
