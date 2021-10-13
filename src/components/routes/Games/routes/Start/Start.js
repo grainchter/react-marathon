@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPokemonsAsync, selectPokemonsData } from '../../../../../store/pokemon';
 import { getPokemonsResolve } from '../../../../../store/pokemons1';
+// import { setPlayer1, setPlayer2, selectPlayer1, setResult} from '../../../../../store/game';
 
 
 
@@ -26,6 +27,10 @@ const StartPage = () => {
 
     useEffect(() => {
         dispatch(getPokemonsAsync());
+        // dispatch(setPlayer1({}));
+        // dispatch(setPlayer2([]));
+        // dispatch(setResult(null));
+
     }, []);
 
     useEffect(() => {
@@ -59,7 +64,7 @@ const StartPage = () => {
     return (
         <>
             <div >
-                <button className={style.buttonWrap} onClick={onStartClick} disabled={Object.values(pokemons).filter(item => item.selected === true).length < 5} >
+                <button className={style.buttonWrap} onClick={onStartClick} disabled={Object.values(pokemons).filter(item => item.selected === true).length < 4} >
                     Start game
                 </button>
             </div>
